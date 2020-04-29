@@ -1,18 +1,17 @@
 <template>
-  <div id="q-app">
-    <routines-table/>
-    <b-button class="float-right">
-      <b-icon-plus/>
-      Add routine
-    </b-button>
-  </div>
+    <div>
+        <routines-table/>
+        <b-button  class="float-right">
+            <b-icon-plus/>
+            Add routine
+        </b-button>
+    </div>
 </template>
 
 <script>
-import RoutinesTable from 'components/RoutinesTable'
+import RoutinesTable from '../../components/RoutinesTable'
 
 export default {
-  name: 'App',
   components: { RoutinesTable },
   // middleware: 'authenticated',
   methods: {
@@ -36,3 +35,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>
