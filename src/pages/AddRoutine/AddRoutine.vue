@@ -1,13 +1,16 @@
 <template>
   <div>
+    <div class="q-ml-xl" style="max-width: 300px">
+        <q-input v-model="routine_name" label="Routine Name"/>
+    </div><br>
     <m-t-p-routine-component
       :availableUiComponents="availableUiComponents"
       :routine_name="routine_name"
       :definedComponents="definedComponents"
       @mtp-defined-components-changed="save_components($event)"
-    />
+    /><br><br>
 
-    <q-btn color="primary" label="Save Routine" @click="submitRoutine"/>
+    <q-btn class="q-ml-xl" color="primary" label="Save Routine" @click="submitRoutine"/>
 
   </div>
 </template>
@@ -29,6 +32,19 @@ export default {
       this.definedComponents = [...transmitted_components]
     },
     submitRoutine () {
+      this.$router.push('/Control')
+
+      const name = this.routine_name
+      const routines = this.$store.state.routines
+      routines.push({
+        name: name,
+        created_at: new Date('2020-05-06T20:00:01').toGMTString(),
+        updated_at: new Date('2020-05-06T16:21:01').toGMTString(),
+        status: 'standby'
+      })
+
+      this.$store.commit('set_routines', routines)
+
       // eslint-disable-next-line camelcase
       // const { routine_name, definedComponents: defined_components } = this
       // eslint-disable-next-line no-unused-vars

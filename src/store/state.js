@@ -7,22 +7,34 @@ export default () => {
     password: null,
     routines: [
       {
-        name: 'Detect Dog and close doors',
-        created_at: new Date('2020-01-01T20:00:01').toGMTString(),
-        updated_at: new Date('2020-01-02T16:21:01').toGMTString(),
-        status: 'active'
+        name: 'Microsoft Stock Price and EUR to RON conversion',
+        created_at: '2020-04-16T18:14:17.204066Z',
+        updated_at: '2020-04-29T07:34:43.510500Z',
+        status: 'standby'
       },
       {
-        name: 'Email me when Microsoft stock is worth buying',
-        created_at: new Date('2020-03-01T20:00:01').toGMTString(),
-        updated_at: new Date('2020-03-01T11:44:35').toGMTString(),
-        status: 'inactive'
+        name: 'Jokes',
+        created_at: '2020-04-16T20:17:29.260002Z',
+        updated_at: '2020-04-30T17:00:02.907170Z',
+        status: 'standby'
       },
       {
-        name: 'Turn on heating system after 16pm ',
-        created_at: new Date('2020-02-01T16:00:01').toGMTString(),
-        updated_at: new Date('2020-02-02T19:21:01').toGMTString(),
-        status: 'active'
+        name: 'Text me when bitcoin drops',
+        created_at: '2020-04-30T07:13:50.250078Z',
+        updated_at: '2020-04-30T07:13:50.250114Z',
+        status: 'standby'
+      },
+      {
+        name: 'Home surveillance',
+        created_at: '2020-04-27T15:30:26.336439Z',
+        updated_at: '2020-04-27T15:30:26.336474Z',
+        status: 'standby'
+      },
+      {
+        name: 'Stock price chasing',
+        created_at: '2020-03-27T15:30:26.336439Z',
+        updated_at: '2020-03-27T15:30:26.336474Z',
+        status: 'standby'
       }
     ],
     available_ui_components: {}
