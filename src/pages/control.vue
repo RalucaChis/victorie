@@ -1,20 +1,18 @@
 <template>
-  <div id="q-app">
-    <router-view />
-    <b-button class="float-right">
-      <b-icon-plus/>
-      Add routine
-    </b-button>
+
+  <!--        <routines-table/>-->
+  <div class="q-pa-md q-gutter-sm">
+    <q-btn style="background: goldenrod; color: white" label="Add Routine"/>
   </div>
+
 </template>
 
 <script>
-import RoutinesTable from 'components/RoutinesTable'
+// import RoutinesTable from '../components/RoutinesTable'
 
 export default {
-  name: 'App',
-  // eslint-disable-next-line vue/no-unused-components
-  components: { RoutinesTable },
+  name: 'ControlIndex',
+  // components: { RoutinesTable },
   // middleware: 'authenticated',
   methods: {
     // onAddRoutineClick() {
@@ -37,3 +35,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>
