@@ -7,15 +7,15 @@
           <m-t-p-category-component :category_definition="component.category_definition"
                                     :id="component.id"
                                     :existing_fields="component.existing_fields"
-                                    @mtp-category-component-changed="onCategoryStateChange($event)"
+                                    @mtp-category-component-changed="val => {onCategoryStateChange(val)}"
                                     @mtp-category-component-delete="onDeleteComponentEmit($event)"/>
         </q-item-section>
       </q-item>
     </q-list>
 
     <div class="text-center">
-      <q-btn v-on:click="onAddComponentClick('condition')" color="primary" icon="plus" label="Add a new condition"/>
-      <q-btn v-on:click="onAddComponentClick('operation')" color="primary" icon="plus" label="Add a new operation"/>
+      <q-btn @click="onAddComponentClick('condition')" color="primary" icon="plus" label="Add a new condition"/>
+      <q-btn @click="onAddComponentClick('operation')" color="primary" icon="plus" label="Add a new operation"/>
     </div>
 
     <div class="category_type_selector"/>
@@ -23,16 +23,11 @@
     <div v-if="selectedCategoryType !== null">
       <label for="selectCategory"><h2><strong>{{selectedCategoryType}}</strong></h2></label>
 
-      <select id="selectCategory" class="form-control" v-on:change="onSelectedCategoryChange($event)">
-        <option disabled value selected="selected">Please select a category</option>
-        <option v-for="mpt_category in availableUiComponents[selectedCategoryType]"
-                :key="mpt_category.category" :value="mpt_category.category">
-          {{ mpt_category.label }}
-        </option>
-      </select>
+      <q-select id="selectCategory" class="form-control" @input="val => { onSelectedCategoryChange(val) }"
+      label="Please select a category"
+      :options="category_options" />
     </div>
     </div>
-<!--  </q-btn-dropdown>-->
 </template>
 
 <script>
@@ -51,14 +46,16 @@ export default {
       // defined_components_copy is a copy of the prop definedComponents
       // as it should be avoided to mutate a prop directly since the value will be overwritten whenever the parent component re-renders
       defined_components_copy: this.definedComponents,
-      selectedCategoryType: null
+      selectedCategoryType: null,
+      category_options: []
     }
   },
   methods: {
     onSelectedCategoryChange (event) {
       // Add a new empty component in the ui after the category was selected (finance, messaging etc)
       // eslint-disable-next-line camelcase
-      const selected_option = event.target.options[event.target.selectedIndex].value
+      const selected_option = event
+      console.log(this.availableUiComponents[this.selectedCategoryType])
       // eslint-disable-next-line camelcase
       const category_definition = this.availableUiComponents[this.selectedCategoryType].find(category => category.category === selected_option)
       const component = {
@@ -67,6 +64,7 @@ export default {
         category_definition
       }
       this.defined_components_copy.push(component)
+      console.log(this.defined_components_copy)
       this.selectedCategoryType = null
     },
     // eslint-disable-next-line camelcase
@@ -85,6 +83,9 @@ export default {
     },
     onAddComponentClick (componentType) {
       this.selectedCategoryType = componentType
+      this.availableUiComponents[this.selectedCategoryType].forEach(category => {
+        this.category_options.push(category.category)
+      })
       document.querySelector('.category_type_selector').scrollIntoView({ behavior: 'smooth' })
     },
     onDeleteComponentEmit ({ id }) {
