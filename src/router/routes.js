@@ -2,9 +2,9 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/ControlLayout.vue'),
+    component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Control/index.vue') }
+      { path: '', component: () => import('pages/Index.vue') }
     ]
   },
   {
@@ -12,6 +12,13 @@ const routes = [
     component: () => import('layouts/AddLayout.vue'),
     children: [
       { path: '', component: () => import('pages/AddRoutine/AddRoutine.vue') }
+    ]
+  },
+  {
+    path: '/Control',
+    component: () => import('layouts/ControlLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Control/index.vue') }
     ]
   }
 ]

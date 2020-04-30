@@ -1,5 +1,5 @@
 export default {
-  getAllRoutines(state) {
+  getAllRoutines (state) {
     return [...state.routines]
   },
 
