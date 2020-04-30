@@ -1,13 +1,14 @@
 <template>
   <div>
     <q-input v-if="field_definition.type !== 'dropdown'" type="field_definition.type"
-                  required="field_definition.required" hint="field_definition.help_text"
+                  required="field_definition.required" :placeholder="[[field_definition.help_text]]"
                   v-model="user_input"
     />
     <q-select v-if="field_definition.type === 'dropdown'"
                    required="field_definition.required"
-                   hint="field_definition.help_text" v-model="user_input">
-                   :options="options"
+                   :placeholder="[[field_definition.help_text]]" v-model="user_input"
+    :options="options">
+
     </q-select>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
   data () {
     return {
       user_input: '',
-      options: this.field_definition.options
+      options: []
     }
   },
   // check if properties from "data" have been changed
@@ -39,6 +40,10 @@ export default {
   },
   created () {
     if (this.field_value !== '') { this.user_input = this.field_value }
+
+    this.field_definition.options.forEach(func => {
+      this.options.push(func.name)
+    })
   }
 }
 </script>

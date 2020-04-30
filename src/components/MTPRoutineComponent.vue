@@ -1,16 +1,21 @@
 <template>
   <div>
     <!-- Iterate over all already defined components and display them-->
+
     <q-list>
-      <q-item>
-        <q-item-section v-for="component in defined_components_copy" :key="component.id">
+
+      <q-item style = "display: block;">
+        <q-item-section v-for="component in defined_components_copy" :key="component.id" style = "display: block;">
+
           <m-t-p-category-component :category_definition="component.category_definition"
                                     :id="component.id"
                                     :existing_fields="component.existing_fields"
                                     @mtp-category-component-changed="onCategoryStateChange($event)"
                                     @mtp-category-component-delete="onDeleteComponentEmit($event)"/>
+          <br>
         </q-item-section>
       </q-item>
+
     </q-list>
 
     <div class="text-center">

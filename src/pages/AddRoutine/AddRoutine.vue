@@ -7,13 +7,7 @@
       @mtp-defined-components-changed="save_components($event)"
     />
 
-    <b-button
-      pill
-      variant="outline-secondary"
-      v-on:click="submitRoutine()"
-      class="add-btn"
-    >Save Routine
-    </b-button>
+    <q-btn color="primary" label="Save Routine" @click="submitRoutine"/>
 
   </div>
 </template>
