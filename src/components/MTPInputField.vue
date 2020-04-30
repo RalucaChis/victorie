@@ -1,17 +1,14 @@
 <template>
   <div>
-    <b-form-input v-if="field_definition.type !== 'dropdown'" :type="field_definition.type"
-                  :required="field_definition.required" :placeholder="field_definition.help_text"
-                  v-model="user_input" :number="field_definition.type == 'number'"
+    <q-input v-if="field_definition.type !== 'dropdown'" type="field_definition.type"
+                  required="field_definition.required" hint="field_definition.help_text"
+                  v-model="user_input"
     />
-    <b-form-select v-if="field_definition.type === 'dropdown'"
-                   :required="field_definition.required"
-                   :placeholder="field_definition.help_text" v-model="user_input">
-      <b-select-option disabled value>{{field_definition.help_text}}</b-select-option>
-      <b-select-option v-for="option in field_definition.options" :key="option.name" :value="option.value">
-        {{ option.name }}
-      </b-select-option>
-    </b-form-select>
+    <q-select v-if="field_definition.type === 'dropdown'"
+                   required="field_definition.required"
+                   hint="field_definition.help_text" v-model="user_input">
+                   :options="options"
+    </q-select>
   </div>
 </template>
 
@@ -27,7 +24,8 @@ export default {
   },
   data () {
     return {
-      user_input: ''
+      user_input: '',
+      options: this.field_definition.options
     }
   },
   // check if properties from "data" have been changed

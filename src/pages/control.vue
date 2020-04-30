@@ -2,7 +2,7 @@
 
   <!--        <routines-table/>-->
   <div class="q-pa-md q-gutter-sm">
-    <q-btn style="background: goldenrod; color: white" label="Add Routine"/>
+    <q-btn to="/add_routine" style="background: goldenrod; color: white" label="Add Routine"/>
   </div>
 
 </template>

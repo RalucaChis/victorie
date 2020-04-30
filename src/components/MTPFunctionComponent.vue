@@ -1,20 +1,18 @@
 <template>
   <div>
-    <b-form-group v-for="field in function_definition.fields" :key="field.name" :label="field.label"
-                  label-cols="4" label-cols-lg="2" label-align-sm="right">
+    <q-form class="q-gutter-md" v-for="field in function_definition.fields" :key="field.name" :label="field.label" >
       <m-t-p-input-field v-bind:field_definition="field"
                          v-bind:field_value="fields_state[field.name]"
                          @mtp-input-changed="onInputFieldChange($event)"/>
-    </b-form-group>
-    <b-form-group v-if="function_definition.result!=null"
-                  v-for="field in [function_definition.result]"
-                  :key="field.name" :label="field.label"
-                  label-cols="4" label-cols-lg="2" label-align-sm="right">
-      <m-t-p-input-field
-        v-bind:field_definition="function_definition.result"
-        v-bind:field_value="result_state" @mtp-input-changed="onInputResultChange($event)"
-      />
-    </b-form-group>
+    </q-form>
+<!--    <q-form class="q-gutter-md" v-if="function_definition.result!=null"-->
+<!--                  v-for="field in [function_definition.result]"-->
+<!--                  :key="field.name" :label="field.label">-->
+<!--      <m-t-p-input-field-->
+<!--        v-bind:field_definition="function_definition.result"-->
+<!--        v-bind:field_value="result_state" @mtp-input-changed="onInputResultChange($event)"-->
+<!--      />-->
+<!--    </q-form>-->
   </div>
 </template>
 
@@ -51,11 +49,13 @@ export default {
     // e.g.: {"name": "stock_price", "new_value": 123}
     onInputFieldChange (event) {
       this.fields_state[event.name] = event.new_value
+      // eslint-disable-next-line camelcase
       const { name: function_name } = this.function_definition
       const parameters = { ...this.fields_state }
       this.$emit('mtp-function-changed', { parameters, function_name })
     },
     onInputResultChange (event) {
+      // eslint-disable-next-line camelcase
       const { name: function_name } = this.function_definition
       this.result_state = event.new_value
       const result = this.result_state

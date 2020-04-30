@@ -1,26 +1,21 @@
 <template>
-  <b-collapse id="custom" visible accordion="design-routine" role="tabpanel">
-
+  <div>
     <!-- Iterate over all already defined components and display them-->
-    <b-card-body v-for="component in defined_components_copy" :key="component.id">
-      <m-t-p-category-component :category_definition="component.category_definition"
-                                :id="component.id"
-                                :existing_fields="component.existing_fields"
-                                @mtp-category-component-changed="onCategoryStateChange($event)"
-                                @mtp-category-component-delete="onDeleteComponentEmit($event)"/>
-    </b-card-body>
+    <q-list>
+      <q-item>
+        <q-item-section v-for="component in defined_components_copy" :key="component.id">
+          <m-t-p-category-component :category_definition="component.category_definition"
+                                    :id="component.id"
+                                    :existing_fields="component.existing_fields"
+                                    @mtp-category-component-changed="onCategoryStateChange($event)"
+                                    @mtp-category-component-delete="onDeleteComponentEmit($event)"/>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
     <div class="text-center">
-      <b-button pill variant="outline-secondary"
-                v-on:click="onAddComponentClick('condition')" class="add-btn">
-        <b-icon-plus/>
-        Add a new condition
-      </b-button>
-      <b-button pill variant="outline-secondary"
-                v-on:click="onAddComponentClick('operation')" class="add-btn">
-        <b-icon-plus/>
-        Add a new operation
-      </b-button>
+      <q-btn v-on:click="onAddComponentClick('condition')" color="primary" icon="plus" label="Add a new condition"/>
+      <q-btn v-on:click="onAddComponentClick('operation')" color="primary" icon="plus" label="Add a new operation"/>
     </div>
 
     <div class="category_type_selector"/>
@@ -36,7 +31,8 @@
         </option>
       </select>
     </div>
-  </b-collapse>
+    </div>
+<!--  </q-btn-dropdown>-->
 </template>
 
 <script>
@@ -62,8 +58,10 @@ export default {
   methods: {
     onSelectedCategoryChange (event) {
       // Add a new empty component in the ui after the category was selected (finance, messaging etc)
+      // eslint-disable-next-line camelcase
       const selected_option = event.target.options[event.target.selectedIndex].value
 
+      // eslint-disable-next-line camelcase
       const category_definition = this.availableUiComponents[this.selectedCategoryType].find(category => category.category === selected_option)
       const component = {
         type: this.selectedCategoryType, // condition or operation
@@ -74,12 +72,16 @@ export default {
       this.defined_components_copy.push(component)
       this.selectedCategoryType = null
     },
+    // eslint-disable-next-line camelcase
     onCategoryStateChange (new_catagory_state) {
+      // eslint-disable-next-line camelcase
       const { id } = new_catagory_state
+      // eslint-disable-next-line camelcase
       const component_index = this.defined_components_copy.findIndex(component => component.id === id)
 
       this.defined_components_copy[component_index] = {
         ...this.defined_components_copy[component_index],
+        // eslint-disable-next-line camelcase
         ...new_catagory_state
       }
       const components = [...this.defined_components_copy]

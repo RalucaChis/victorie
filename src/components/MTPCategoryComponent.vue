@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form class="shadow p-3 mb-5 bg-white rounded mx-auto text-center">
+    <q-form class="shadow p-3 mb-5 bg-white rounded mx-auto text-center">
       <fieldset class="mx-auto">
         <div class="form-group categroy-selection">
           <div v-if="selected_function == null">
@@ -19,11 +19,9 @@
                                     v-bind:function_definition="selected_function"
                                     :existing_fields="existing_fields"/>
         </div>
-        <b-button pill variant="outline-secondary" v-on:click="onDeleteComponentClick()" class="add-btn">
-          <b-icon-trash-fill/>
-        </b-button>
+        <q-btn v-on:click="onDeleteComponentClick()" round color="primary" label="Delete"/>
       </fieldset>
-    </b-form>
+    </q-form>
 
   </div>
 </template>
@@ -61,13 +59,16 @@ export default {
   },
   methods: {
     onSelectedFunctionChange (event) {
+      // eslint-disable-next-line camelcase
       const selected_option = event.target.options[event.target.selectedIndex].value
+      // eslint-disable-next-line camelcase
       this.selected_function = this.category_definition.functions.find(mtp_function => mtp_function.name === selected_option)
     },
 
     onFunctionStateChange (event) {
       // the child MTPFunctionComponent component will emit the values of it's input fields
       // when it's input fields emit that they have been changed (aka the user has entered something)
+      // eslint-disable-next-line camelcase
       const { name: category_name, id } = this
       this.$emit('mtp-category-component-changed', { ...event, category_name, id })
     },
