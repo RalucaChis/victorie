@@ -1,44 +1,75 @@
 <template>
-  <b-table :fields="fields" :items="routines">
-    <template v-slot:cell(routine_name)="data">
-      <div>{{
-        data.value
-        }}
-      </div>
-        <b-button pill variant="outline-secondary" v-on:click="onPlayRoutineClick(data.item.id)" class="add-btn">
-          <b-icon-play-fill/>
-        </b-button>
-<!--      <nuxt-link :to="`/routine/edit/${data.item.id}`">-->
-        <b-button pill variant="outline-secondary"  class="add-btn">
-          <b-icon-pencil/>
-        </b-button>
-<!--      </nuxt-link>-->
-      <b-button pill variant="outline-secondary" v-on:click="onDeleteRoutineClick(data.item.id)" class="add-btn">
-        <b-icon-trash-fill/>
-      </b-button>
-    </template>
-  </b-table>
+  <q-table
+    title="Control Page"
+    :data="routines"
+    :columns="fields"
+    row-key="name"
+  />
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'RoutinesTable',
-
   data () {
     return {
-      new_routines: [],
       fields: [
-        'routine_name',
-        'state',
         {
-          key: 'created_at',
-          label: 'Date added'
+          name: 'desc',
+          required: true,
+          label: 'Name',
+          align: 'left',
+          field: 'name',
+          sortable: true,
+          style: 'width: 500px'
         },
         {
-          key: 'updated_at',
-          label: 'Date last change'
+          name: 'desc',
+          required: true,
+          label: 'Status',
+          align: 'left',
+          field: 'status',
+          sortable: true,
+          style: 'width: 500px'
+        },
+        {
+          name: 'desc',
+          required: true,
+          label: 'Date added',
+          align: 'left',
+          field: 'created_at',
+          sortable: true,
+          style: 'width: 500px'
+        },
+        {
+          name: 'desc',
+          required: true,
+          label: 'Date last change',
+          align: 'left',
+          field: 'updated_at',
+          sortable: true,
+          style: 'width: 500px'
+        }
+      ],
+      routines: [
+        {
+          name: 'Detect Dog and close doors',
+          created_at: new Date('2020-01-01T20:00:01').toGMTString(),
+          updated_at: new Date('2020-01-02T16:21:01').toGMTString(),
+          status: 'active'
+        },
+        {
+          name: 'Email me when Microsoft stock is worth buying',
+          created_at: new Date('2020-03-01T20:00:01').toGMTString(),
+          updated_at: new Date('2020-03-01T11:44:35').toGMTString(),
+          status: 'inactive'
+        },
+        {
+          name: 'Turn on heating system after 16pm ',
+          created_at: new Date('2020-02-01T16:00:01').toGMTString(),
+          updated_at: new Date('2020-02-02T19:21:01').toGMTString(),
+          status: 'active'
         }
       ]
     }
@@ -47,29 +78,6 @@ export default {
     ...mapGetters({
       routines: 'getAllRoutines'
     })
-  },
-  methods: {
-    ...mapActions(['set_routines', 'deleteRoutine', 'playRoutine', 'fetchAllRoutines']),
-    ...mapGetters(['getAllRoutines']),
-
-    onPlayRoutineClick (id) {
-      try {
-        this.playRoutine(id)
-      } catch (error) {
-        this.notify_error(error)
-      }
-      this.$store.dispatch('fetchAllRoutines')
-        .then(response => this.set_routines(response.data))
-    },
-    onDeleteRoutineClick (id) {
-      this.new_routines = this.routines.filter(routine => routine.id !== id)
-      this.set_routines(this.new_routines)
-      try {
-        this.deleteRoutine(id)
-      } catch (error) {
-        this.notify_error(error)
-      }
-    }
   }
 }
 </script>
