@@ -6,13 +6,9 @@
           <div v-if="selected_function == null">
             <label for="selectFunction"><h2><strong>{{label}}</strong></h2></label>
 
-            <select id="selectFunction" class="form-control" v-on:change="onSelectedFunctionChange($event)">
-              <option disabled value selected="selected">Please select a functionality</option>
-              <option v-for="mtp_function in category_definition.functions"
-                      :key="mtp_function.name" :value="mtp_function.name">
-                {{ mtp_function.label }}
-              </option>
-            </select>
+            <q-select id="selectFunction" class="form-control" @input="val => { onSelectedFunctionChange(val) }"
+            label = "Please select a functionality"
+            :options="options"/>
           </div>
           <m-t-p-function-component v-if="selected_function != null"
                                     @mtp-function-changed="onFunctionStateChange($event)"
@@ -44,12 +40,16 @@ export default {
       name: '',
       label: '',
       result: '',
-      selected_function: null
+      selected_function: null,
+      options: []
     }
   },
   created () {
     this.name = this.category_definition.category
     this.label = this.category_definition.label
+    this.category_definition.functions.forEach(func => {
+      this.options.push(func.label)
+    })
     if (this.existing_fields != null) {
       this.selected_function = this.category_definition.functions.find(f => f.name === this.existing_fields.function_name)
       delete this.existing_fields.function_name
@@ -57,10 +57,12 @@ export default {
   },
   methods: {
     onSelectedFunctionChange (event) {
+      console.log(event)
       // eslint-disable-next-line camelcase
-      const selected_option = event.target.options[event.target.selectedIndex].value
+      const selected_option = event
       // eslint-disable-next-line camelcase
-      this.selected_function = this.category_definition.functions.find(mtp_function => mtp_function.name === selected_option)
+      this.selected_function = this.category_definition.functions.find(mtp_function => mtp_function.label === selected_option)
+      console.log(this.selected_function)
     },
     onFunctionStateChange (event) {
       // eslint-disable-next-line camelcase
