@@ -19,7 +19,7 @@
 import RoutinesTable from 'components/RoutinesTable'
 
 export default {
-  name: 'MainLayout',
+  name: 'ControlLayout',
 
   components: {
     RoutinesTable

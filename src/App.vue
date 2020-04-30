@@ -1,39 +1,11 @@
 <template>
   <div id="q-app">
     <router-view />
-    <b-button class="float-right">
-      <b-icon-plus/>
-      Add routine
-    </b-button>
   </div>
 </template>
 
-<script>
-import RoutinesTable from 'components/RoutinesTable'
-
+<script >
 export default {
-  name: 'App',
-  // eslint-disable-next-line vue/no-unused-components
-  components: { RoutinesTable },
-  // middleware: 'authenticated',
-  methods: {
-    // onAddRoutineClick() {
-    //     this.$router.push("/routine/add")
-    // }
-  },
-  // head () {
-  //   return {
-  //     title: 'Control Page',
-  //     meta: [
-  //       {
-  //         hid: 'description',
-  //         name: 'description',
-  //         content: 'Manage your already created routines or create a new one'
-  //       }
-  //     ]
-  //   }
-  // },
-  mounted () {
-  }
+  name: 'App'
 }
 </script>
