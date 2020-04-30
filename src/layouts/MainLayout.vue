@@ -1,14 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          Control Page
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-
-    <RoutinesTable/>
     <q-page-container>
       <router-view/>
     </q-page-container>
@@ -16,14 +7,8 @@
 </template>
 
 <script>
-import RoutinesTable from 'components/RoutinesTable'
-
 export default {
-  name: 'MainLayout',
-
-  components: {
-    RoutinesTable
-  }
+  name: 'MainLayout'
 }
 
 </script>
